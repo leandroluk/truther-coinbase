@@ -1,0 +1,9 @@
+packages:
+  - backend/apps/*
+  - backend/libs/*
+  - domain
+  - packages/*
+  - tools/*
+
+onlyBuiltDependencies:
+  - lefthook

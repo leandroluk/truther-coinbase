@@ -1,0 +1,30 @@
+{
+  "name": "truther-coinbase",
+  "version": "1.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "author": {
+    "name": "Leandro Santiago Gomes",
+    "email": "leandroluk@gmail.com",
+    "url": "https://www.linkedin.com/in/leandroluk/"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "turbo",
+    "nestjs",
+    "nextjs",
+    "typescript",
+    "truther",
+    "coinbase"
+  ],
+  "packageManager": "pnpm@10.12.4",
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "eslint": "^9.30.1",
+    "lefthook": "^1.11.16",
+    "turbo": "^2.5.4"
+  }
+}
