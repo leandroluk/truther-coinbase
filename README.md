@@ -27,6 +27,14 @@ Project developed as tech challenge for Truther Company
   $ pnpm install
   ```
 
+# Choices in the development process
+
+- The development pattern applied is focused on creating features where each use case refers to a feature. Any feature that is exposed in the API is declared in the domain layer with input validations and swagger documentation, being reused between projects.
+
+- Any module that can be shared between other future projects is developed in a decoupled manner to optimize development and testing, ensuring minimal butterfly effects on applications in the evolution process.
+
+- The application uses [SOLID](https://en.wikipedia.org/wiki/Solid) features but applied to [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it), meaning that inversions or dependency injections will only be applied in cases where they are really necessary.
+
 # Entity Relationship Diagram
 
 ```mermaid
@@ -70,6 +78,8 @@ classDiagram
 
     Coin --|> CoinPrice : coinId
 ```
+
+
 
 # Tips
 
