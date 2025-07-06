@@ -70,3 +70,43 @@ classDiagram
 
     Coin --|> CoinPrice : coinId
 ```
+
+# Tips
+
+1. Add command to you shell to move to root of workspace to improve coding process
+
+    <details>
+
+    <summary>On Windows (PowerShell)</summary>
+
+    Use the command `code $PROFILE` to open the shell profile and add this line
+
+    ```pwsh
+
+    function cdroot {
+      $current = Get-Location
+      while (-not (Test-Path "pnpm-workspace.yaml") -and $current.Path -ne [System.IO.Path]::GetPathRoot($current.Path)) {
+        Set-Location ..
+        $current = Get-Location
+      }
+    }
+    ```
+
+    Execute the command to refresh terminal `. $PROFILE`
+
+    </details>
+
+    <details>
+
+    <summary>On Linux or Macos</summary>
+
+    Use the command `code ~/.bashrc` to open the shell profile and add this line
+
+    ```bash
+    #
+    alias cdworkspace='while [ ! -f "pnpm-workspace.yaml" ] && [ "$PWD" != "/" ]; do cd ..; done'
+    ```
+
+    Execute the command to refresh terminal `source ~/.bashrc`
+
+    </details>
