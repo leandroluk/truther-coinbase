@@ -10,6 +10,10 @@
     "url": "https://www.linkedin.com/in/leandroluk/"
   },
   "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e",
     "lint": "turbo run lint"
   },
   "keywords": [
