@@ -1,0 +1,40 @@
+{
+  "name": "@truther-coinbase/domain",
+  "version": "0.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "dev:tsc": "tsc -b -w",
+    "dev:alias": "dev-alias-w",
+    "dev": "dev-scripts",
+    "build": "tsc -b && dev-alias",
+    "lint": "eslint \"{src,test}/**/*.ts\" --fix"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "./dist/**"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./*": {
+      "import": "./dist/*.js",
+      "require": "./dist/*.js"
+    }
+  },
+  "devDependencies": {
+    "@packages/config-eslint": "workspace:*",
+    "@packages/config-typescript": "workspace:*",
+    "@tools/dev": "workspace:*",
+    "@types/node": "^24.0.4",
+    "typescript": "5.8.3"
+  }
+}
