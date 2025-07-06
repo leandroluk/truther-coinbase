@@ -1,4 +1,4 @@
-import config from '@repo/config-eslint/library';
+import config from '@packages/config-eslint/library';
 
 export default [
   {
