@@ -4,7 +4,7 @@ export default {
   roots: ['src', 'test'],
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.{ts,js}', '!**/index.ts'],
-  coverageDirectory: './coverage',
+  coverageDirectory: './.coverage',
   coverageProvider: 'v8',
   moduleFileExtensions: ['js', 'ts', 'json'],
   testEnvironment: 'jsdom',
