@@ -1,0 +1,30 @@
+{
+  "Jest Describe Block": {
+    "prefix": ":desc",
+    "body": [
+      "describe('${RELATIVE_FILEPATH}', () => {",
+      "  $0",
+      "});"
+    ],
+    "description": "Jest `describe` block"
+  },
+  "Jest It Block": {
+    "prefix": ":it",
+    "body": [
+      "  it('$1', async () => {",
+      "    $0",
+      "  });"
+    ],
+    "description": "Jest `it` block"
+  },
+  "Jest makeSut Block": {
+    "prefix": ":msut",
+    "body": [
+      "const makeSut = async () => {",
+      "  const sut = $0;",
+      "  return {sut};",
+      "};"
+    ],
+    "description": "Jest `makeSut` block"
+  }
+}
