@@ -1,5 +1,6 @@
 {
   "name": "truther-coinbase",
+  "description": "Project developed as tech challenge for Truther Company",
   "version": "1.0.0",
   "private": true,
   "license": "UNLICENSED",
