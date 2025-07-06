@@ -2,7 +2,12 @@
   "extends": "@packages/config-typescript/base.json",
   "compilerOptions": {
     "baseUrl": "src",
-    "outDir": "dist"
+    "outDir": "dist",
+    "paths": {
+      "#/*": [
+        "./*"
+      ]
+    }
   },
   "include": [
     "src"
@@ -13,5 +18,10 @@
     "dist",
     "**/*spec.ts",
     "**/*text.ts"
-  ]
+  ],
+  "ts-node": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  }
 }
