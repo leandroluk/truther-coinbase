@@ -1,0 +1,16 @@
+{
+  "name": "@tools/dev",
+  "version": "1.0.0",
+  "private": true,
+  "bin": {
+    "dev-alias": "./bin/alias.js",
+    "dev-alias-w": "./bin/alias-w.js",
+    "dev-scripts": "./bin/scripts.js"
+  },
+  "dependencies": {
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^9.2.0",
+    "tsc-alias": "^1.8.16",
+    "typescript": "5.8.3"
+  }
+}
