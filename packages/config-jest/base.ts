@@ -1,9 +1,13 @@
-import type { Config } from 'jest';
+import type {Config} from 'jest';
 
-export const config = {
+export default {
+  roots: ['src', 'test'],
   collectCoverage: true,
-  coverageDirectory: 'coverage',
+  collectCoverageFrom: ['src/**/*.{ts,js}'],
+  coverageDirectory: './coverage',
   coverageProvider: 'v8',
   moduleFileExtensions: ['js', 'ts', 'json'],
   testEnvironment: 'jsdom',
-} as const satisfies Config;
+  testMatch: ['<rootDir>/test/**/*.{test,spec}.{js,jsx,ts,tsx}'],
+  moduleNameMapper: {'^#/(.*)$': '<rootDir>/src/$1'},
+} as const as Config

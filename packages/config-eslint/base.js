@@ -8,6 +8,7 @@ import tseslint from 'typescript-eslint';
 /** @type {import('eslint').Linter.Config} */
 export default {
   name: 'base',
+  files: ['**/*.{js,jsx,ts,tsx}'],
   languageOptions: {
     parser: tseslint.parser,
     sourceType: 'module',
@@ -101,6 +102,7 @@ export default {
   },
   linterOptions: {
     reportUnusedDisableDirectives: true,
+    reportUnusedInlineConfigs: 'error',
   },
   ignores: [
     '.*.js',
@@ -111,4 +113,4 @@ export default {
     'coverage/',
     'node_modules/',
   ],
-};
+}

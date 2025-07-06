@@ -1,13 +1,9 @@
 import type {Config} from 'jest';
-import {config as baseConfig} from './base';
+import baseConfig from './base';
 
-export const config = {
+export default {
   ...baseConfig,
-  rootDir: 'src',
-  testRegex: '.*\\.spec\\.ts$',
-  transform: {
-    '^.+\\.(t|j)s$': 'ts-jest',
-  },
+  transform: {'^.+\\.(t|j)s$': 'ts-jest'},
   collectCoverageFrom: ['**/*.(t|j)s'],
   coverageDirectory: '../coverage',
   testEnvironment: 'node',

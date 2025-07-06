@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./base": "./base.config.js",
-    "./library": "./library.config.js",
-    "./nest": "./nest.config.js"
+    "./base": "./base.js",
+    "./jest": "./jest.js",
+    "./library": "./library.js",
+    "./nest": "./nest.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",

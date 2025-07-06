@@ -1,18 +1,18 @@
 import eslintPluginOnlyWarn from 'eslint-plugin-only-warn';
 import globals from 'globals';
 import path from 'path';
-import base from './base.config.js';
+import baseConfig from './base.js';
 
-/** @type {import("eslint").Linter.Config} */
+/** @type {import("eslint").Linter.Config[]} */
 export default {
-  ...base,
+  ...baseConfig,
   name: 'library',
   plugins: {
-    ...base.plugins,
+    ...baseConfig.plugins,
     'only-warn': eslintPluginOnlyWarn,
   },
   languageOptions: {
-    ...base.languageOptions,
+    ...baseConfig.languageOptions,
     globals: {
       ...globals.React,
       ...globals.JSX,
