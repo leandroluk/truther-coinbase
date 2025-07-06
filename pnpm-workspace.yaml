@@ -7,3 +7,5 @@ packages:
 
 onlyBuiltDependencies:
   - lefthook
+  - sharp
+  - unrs-resolver
