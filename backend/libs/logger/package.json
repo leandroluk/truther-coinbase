@@ -7,9 +7,9 @@
     "dev:tsc": "tsc -b -w",
     "dev:alias": "dev-alias-w",
     "dev": "dev-scripts",
-    "build": "tsc -b && dev-alias",
+    "build": "tsc -p tsconfig.build.json && dev-alias",
     "lint": "eslint \"{src,test}/**/*.ts\" --fix",
-    "test": "jest --passWithNoTests",
+    "test": "jest --passWithNoTests --detectOpenHandles",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage"
   },
