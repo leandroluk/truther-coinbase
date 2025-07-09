@@ -17,7 +17,7 @@ export class CryptoService {
 
   encrypt(plainText: string): string {
     const iv = crypto.randomBytes(12).toString(this.cipherEncoding);
-    const cipher = crypto.createCipheriv(this.algorithm, this.cryptoEnv.key, iv);
+    const cipher = crypto.createCipheriv(this.algorithm, this.cryptoEnv.PACKAGES_NEST_CRYPTO_KEY, iv);
     let encrypted = cipher.update(plainText, this.plainEncoding, this.cipherEncoding);
     encrypted += cipher.final(this.cipherEncoding);
     const tag = cipher.getAuthTag().toString(this.cipherEncoding);
@@ -27,7 +27,7 @@ export class CryptoService {
   decrypt(cipherText: string): string {
     try {
       const [iv, encrypted, tag] = cipherText.split('.');
-      const decipher = crypto.createDecipheriv(this.algorithm, this.cryptoEnv.key, iv!);
+      const decipher = crypto.createDecipheriv(this.algorithm, this.cryptoEnv.PACKAGES_NEST_CRYPTO_KEY, iv!);
       decipher.setAuthTag(Buffer.from(tag!, this.cipherEncoding));
       let plainText = decipher.update(encrypted!, this.cipherEncoding, this.plainEncoding);
       plainText += decipher.final(this.plainEncoding);

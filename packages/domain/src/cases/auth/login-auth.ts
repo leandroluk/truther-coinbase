@@ -1,18 +1,19 @@
-import {TUser} from '#/entities';
-import {Swagger} from '#/swagger';
+import {swaggerGenerator} from '#/generators';
+import {TOpenidToken, TUser} from '#/objects';
 import Joi from 'joi';
 
 export type TLoginAuth = {
-  run(data: TLoginAuth.Data): Promise<TLoginAuth.Result>;
+  run(data: TLoginAuth_Data): Promise<TOpenidToken>;
 };
-export namespace TLoginAuth {
-  export type Data = Pick<TUser, 'email' | 'password'>;
-  export namespace Data {
-    export const schema = Joi.object<Data>({
+export type TLoginAuth_Data = Pick<TUser, 'email' | 'password'>;
+
+export const TLoginAuth = {
+  data: {
+    validator: Joi.object<TLoginAuth_Data>({
       email: Joi.string().required(),
       password: Joi.string().required(),
-    });
-    export const swagger = Swagger.object<Data>({
+    }),
+    swagger: swaggerGenerator.object<TLoginAuth_Data>({
       required: ['email', 'password'],
       properties: {
         email: TUser.swagger.properties.email,
@@ -21,18 +22,8 @@ export namespace TLoginAuth {
       example: {
         email: 'john.doe@email.com',
         password: 'Test@123',
-      } satisfies Data,
-    });
-  }
-  export type Result = {
-    sessionId: string;
-  };
-  export namespace Result {
-    export const swagger = Swagger.object<Result>({
-      required: ['sessionId'],
-      properties: {
-        sessionId: Swagger.string({description: "User's authenticated session"}),
-      },
-    });
-  }
-}
+      } satisfies TLoginAuth_Data,
+    }),
+  },
+  result: TOpenidToken,
+};

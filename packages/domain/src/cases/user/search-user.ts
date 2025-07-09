@@ -1,46 +1,40 @@
-import {TUser} from '#/entities';
 import {EUserRole} from '#/enums';
-import {type NSearch} from '#/generics';
-import {Swagger} from '#/swagger';
-import {search} from '#/utils';
+import {swaggerGenerator, validatorGenerator} from '#/generators';
+import {TUser} from '#/objects';
+import {type TSearchQuery, type TSearchResult} from '#/types';
 import Joi from 'joi';
 
 export type TSearchUser = {
-  run(data: TSearchUser.Data): Promise<TSearchUser.Result>;
+  run(query: TSearchUser_Query): Promise<TSearchUser_Result>;
 };
-export namespace TSearchUser {
-  export type Data = NSearch.Query<Data.Item>;
-  export namespace Data {
-    export type Item = Omit<TUser, 'password'>;
-    export namespace Item {
-      export const schema = Joi.object<Item>({
-        id: Joi.number().integer().positive(),
-        updatedAt: Joi.date(),
-        createdAt: Joi.date(),
-        name: Joi.string(),
-        email: Joi.string(),
-        role: Joi.string().valid(...Object.values(EUserRole)),
-      });
-      export const swagger = Swagger.object<Item>({
-        required: [],
-        properties: {
-          id: TUser.swagger.properties.id,
-          updatedAt: TUser.swagger.properties.updatedAt,
-          createdAt: TUser.swagger.properties.createdAt,
-          name: TUser.swagger.properties.name,
-          email: TUser.swagger.properties.email,
-          role: TUser.swagger.properties.role,
-        },
-      });
-    }
-    export const {schema, swagger} = search.querySchemaAndSwagger(Item.schema, Item.swagger);
-  }
-  export type Result = NSearch.Result<Result.Item>;
-  export namespace Result {
-    export type Item = Data.Item;
-    export namespace Item {
-      export const swagger = Data.Item.swagger;
-    }
-    export const swagger = search.resultSwagger<Item>(Item.swagger);
-  }
-}
+export type TSearchUser_Item = Omit<TUser, 'password'>;
+export type TSearchUser_Query = TSearchQuery<TUser>;
+export type TSearchUser_Result = TSearchResult<TSearchUser_Item>;
+
+const itemSwagger = swaggerGenerator.object<TSearchUser_Item>({
+  required: [],
+  properties: {
+    id: TUser.swagger.properties.id,
+    updatedAt: TUser.swagger.properties.updatedAt,
+    createdAt: TUser.swagger.properties.createdAt,
+    removedAt: TUser.swagger.properties.removedAt,
+    name: TUser.swagger.properties.name,
+    email: TUser.swagger.properties.email,
+    role: TUser.swagger.properties.role,
+  },
+});
+
+export const TSearchUser = {
+  query: {
+    validator: validatorGenerator.searchQuery<TSearchUser_Item>({
+      id: Joi.number().integer().positive(),
+      updatedAt: Joi.date(),
+      createdAt: Joi.date(),
+      name: Joi.string(),
+      email: Joi.string(),
+      role: Joi.string().valid(...Object.values(EUserRole)),
+    }),
+    swagger: swaggerGenerator.searchQuery<TSearchUser_Item>(itemSwagger),
+  },
+  result: swaggerGenerator.searchResult<TSearchUser_Item>(itemSwagger),
+};

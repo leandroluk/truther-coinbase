@@ -11,7 +11,7 @@ export class CacheService {
     private readonly cacheEnv: CacheEnv,
     private readonly loggerService: LoggerService
   ) {
-    this.client = new Redis(this.cacheEnv.url, {lazyConnect: true});
+    this.client = new Redis(this.cacheEnv.PACKAGES_NEST_CACHE_URL, {lazyConnect: true});
   }
 
   async connect(): Promise<void> {
@@ -34,7 +34,7 @@ export class CacheService {
 
   async get<T = unknown>(pattern: string): Promise<T | null> {
     try {
-      const [key] = await this.client.keys(`${this.cacheEnv.key}:${pattern}`);
+      const [key] = await this.client.keys(`${this.cacheEnv.PACKAGES_NEST_CACHE_KEY}:${pattern}`);
       if (key) {
         const stringfiedValue = await this.client.get(key);
         if (stringfiedValue) {
@@ -49,7 +49,7 @@ export class CacheService {
   }
 
   async set<T = unknown>(key: string, value: T, expiresInSeconds?: number): Promise<void> {
-    const ref = `${this.cacheEnv.key}:${key}`;
+    const ref = `${this.cacheEnv.PACKAGES_NEST_CACHE_KEY}:${key}`;
     const stringfiedValue = JSON.stringify(value);
     let multi = this.client.multi().set(ref, stringfiedValue);
     if (expiresInSeconds && Number.isFinite(expiresInSeconds)) {
@@ -59,7 +59,7 @@ export class CacheService {
   }
 
   async del(pattern: string): Promise<void> {
-    const fullPattern = `${this.cacheEnv.key}:${pattern}`;
+    const fullPattern = `${this.cacheEnv.PACKAGES_NEST_CACHE_KEY}:${pattern}`;
     const stream = this.client.scanStream({
       match: fullPattern,
       count: 100,

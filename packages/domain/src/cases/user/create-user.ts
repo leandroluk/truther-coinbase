@@ -1,24 +1,23 @@
 import {MESSAGE, REGEX} from '#/constants';
-import {TUser} from '#/entities';
 import {EUserRole} from '#/enums';
-import {Swagger} from '#/swagger';
+import {swaggerGenerator} from '#/generators/swagger';
+import {type TUser_Fields, TUser} from '#/objects';
 import Joi from 'joi';
 
 export type TCreateUser = {
-  run(data: TCreateUser.Data): Promise<void>;
+  run(data: TCreateUser_Data): Promise<void>;
 };
-export namespace TCreateUser {
-  export type Data = TUser.Fields;
-  export namespace Data {
-    const userRoleValues = Object.values(EUserRole);
+export type TCreateUser_Data = TUser_Fields & {};
+export const TCreateUser = {
+  data: {
     // prettier-ignore
-    export const schema = Joi.object<Data>({
+    validator: Joi.object<TUser_Fields>({
       name: Joi.string().min(1).max(200).required(),
       email: Joi.string().email().max(200).required(),
       password: Joi.string().pattern(REGEX.PASSWORD).messages({'string.pattern.base': MESSAGE.PASSWORD}).required(),
-      role: Joi.string().valid(...userRoleValues).default(EUserRole.Member).required(),
-    });
-    export const swagger = Swagger.object<Data>({
+      role: Joi.string().valid(...Object.values(EUserRole)).default(EUserRole.Member).required(),
+    }),
+    swagger: swaggerGenerator.object<TUser_Fields>({
       required: ['email'],
       properties: {
         name: TUser.swagger.properties.name,
@@ -26,6 +25,6 @@ export namespace TCreateUser {
         password: TUser.swagger.properties.password,
         role: TUser.swagger.properties.role,
       },
-    });
-  }
-}
+    }),
+  },
+};

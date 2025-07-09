@@ -1,12 +1,13 @@
 import {Injectable} from '@nestjs/common';
-import {EnvProperty} from '@repo/nest-common';
+import {Env} from '@repo/nest-common';
 import Joi from 'joi';
 
+@Env(
+  Joi.object<CryptoEnv, true>({
+    PACKAGES_NEST_CRYPTO_KEY: Joi.string().length(32).default('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
+  })
+)
 @Injectable()
 export class CryptoEnv {
-  @EnvProperty({
-    name: 'PACKAGES_NEST_CRYPTO_KEY',
-    schema: Joi.string().length(32).default('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
-  })
-  key!: string;
+  PACKAGES_NEST_CRYPTO_KEY!: string;
 }

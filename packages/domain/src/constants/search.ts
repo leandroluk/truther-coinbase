@@ -1,16 +1,22 @@
-import {type NSearch} from '#/generics/search';
+import {
+  type TSearchOperatorBoolean,
+  type TSearchOperatorDate,
+  type TSearchOperatorNumber,
+  type TSearchOperatorRange,
+  type TSearchOperatorString,
+} from '#/types';
 
-const rangeList = ['in', 'nin'] as Array<NSearch.Operator.Range>;
+const rangeList = ['in', 'nin'] as Array<TSearchOperatorRange>;
 export const SEARCH = {
   OPERATOR: {
-    STRING: [
+    string: [
       'eq', //
       'like',
       'neq',
       'nlike',
       ...rangeList,
-    ] as Array<NSearch.Operator.String & NSearch.Operator.Range>,
-    NUMBER: [
+    ] as Array<TSearchOperatorString & TSearchOperatorRange>,
+    number: [
       'eq', //
       'gt',
       'gte',
@@ -22,13 +28,13 @@ export const SEARCH = {
       'nlt',
       'nlte',
       ...rangeList,
-    ] as Array<NSearch.Operator.Number & NSearch.Operator.Range>,
-    BOOLEAN: [
+    ] as Array<TSearchOperatorNumber & TSearchOperatorRange>,
+    boolean: [
       'eq', //
       'neq',
       ...rangeList,
-    ] as Array<NSearch.Operator.Boolean & NSearch.Operator.Range>,
-    DATE: [
+    ] as Array<TSearchOperatorBoolean & TSearchOperatorRange>,
+    date: [
       'eq', //
       'gt',
       'gte',
@@ -40,6 +46,6 @@ export const SEARCH = {
       'nlt',
       'nlte',
       ...rangeList,
-    ] as Array<NSearch.Operator.Date & NSearch.Operator.Range>,
+    ] as Array<TSearchOperatorDate & TSearchOperatorRange>,
   },
 };

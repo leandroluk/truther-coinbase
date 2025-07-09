@@ -20,7 +20,7 @@ export class CacheRequestInterceptor implements NestInterceptor {
       return next.handle();
     }
     const key = typeof keyOrGeneratorFn === 'string' ? keyOrGeneratorFn : keyOrGeneratorFn(request);
-    return from(this.handle(`${this.cacheEnv.requestKey}:${key}`, next, expireInSeconds));
+    return from(this.handle(`${this.cacheEnv.PACKAGES_NEST_CACHE_REQUEST_KEY}:${key}`, next, expireInSeconds));
   }
 
   private async handle(key: string, next: CallHandler, expireInSeconds?: number): Promise<any> {

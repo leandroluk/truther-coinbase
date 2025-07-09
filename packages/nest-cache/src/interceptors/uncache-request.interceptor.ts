@@ -27,7 +27,7 @@ export class UncacheRequestInterceptor implements NestInterceptor {
 
   private async handle(key: string, next: CallHandler): Promise<any> {
     const result = await firstValueFrom(next.handle());
-    const fullKey = `${this.cacheEnv.requestKey}:${key}`;
+    const fullKey = `${this.cacheEnv.PACKAGES_NEST_CACHE_REQUEST_KEY}:${key}`;
     this.cacheService.del(fullKey).catch((error: Error) => {
       this.loggerService.warn(`Failed to delete key ${fullKey}. ${error.message}`);
     });

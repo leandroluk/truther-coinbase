@@ -1,21 +1,21 @@
-import {Swagger} from '#/swagger';
+import {swaggerGenerator} from '#/generators';
 
 export type THealthcheck = {
-  run(): Promise<THealthcheck.Result>;
+  run(): Promise<THealthcheck_Result>;
 };
-export namespace THealthcheck {
-  export type Result = {
-    uptime: string;
-  };
-  export namespace Result {
-    export const swagger = Swagger.object<Result>({
+export type THealthcheck_Result = {
+  uptime: string;
+};
+export const THealthcheck_Result = {
+  result: {
+    swagger: swaggerGenerator.object<THealthcheck_Result>({
       required: ['uptime'],
       properties: {
-        uptime: Swagger.string({
+        uptime: swaggerGenerator.string({
           description: 'Uptime of application',
           example: '10d',
         }),
       },
-    });
-  }
-}
+    }),
+  },
+};

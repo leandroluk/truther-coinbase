@@ -83,33 +83,50 @@ function debounceFn(fn, delay) {
   };
 }
 
-const runBuilds = debounceFn(() => {
+const runBuilds = debounceFn(async () => {
   const list = Array.from(scheduled);
   scheduled.clear();
-  list.forEach(pkg => {
-    log(`📦 Rebuilding ${bold(cyan(pkg))}`);
-    const proc = spawn('pnpm', ['--filter', pkg, 'build'], {
-      cwd: ROOT,
-      shell: true,
-      stdio: ['ignore', 'pipe', 'pipe'],
-    });
 
-    let stderr = '';
+  const results = await Promise.allSettled(
+    list.map(pkg => {
+      log(`📦 Rebuilding ${bold(cyan(pkg))}`);
+      return new Promise((resolve, reject) => {
+        const proc = spawn('pnpm', ['--filter', pkg, 'build'], {
+          cwd: ROOT,
+          shell: isWindows,
+          stdio: ['ignore', 'pipe', 'pipe'],
+        });
 
-    proc.stderr.on('data', data => {
-      stderr += data.toString();
-    });
+        let stderr = '';
+        let stdout = '';
 
-    proc.on('exit', code => {
-      if (code !== 0 || stderr.trim()) {
-        log(`❌ ${red('Build failed')} for ${bold(cyan(pkg))}:\n${stderr.trim()}`);
-      } else {
-        log(`✅ Build done for ${bold(green(pkg))}`);
-      }
-    });
-  });
+        proc.stdout.on('data', data => {
+          stdout += data.toString();
+        });
+
+        proc.stderr.on('data', data => {
+          stderr += data.toString();
+        });
+
+        proc.on('exit', code => {
+          if (code !== 0 || stderr.trim()) {
+            log(`❌ ${red('Build failed')} for ${bold(cyan(pkg))}`);
+            if (stderr.trim()) {
+              console.error(stderr.trim());
+            } else if (stdout.trim()) {
+              console.error(stdout.trim());
+            }
+            // Não propaga o erro — apenas resolve
+            return resolve(); // Não faz reject
+          }
+
+          log(`✅ Build done for ${bold(green(pkg))}`);
+          resolve();
+        });
+      });
+    })
+  );
 }, 300);
-
 
 /** @param {string} pkgName */
 function scheduleBuild(pkgName) {

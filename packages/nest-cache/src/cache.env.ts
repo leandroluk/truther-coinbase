@@ -1,24 +1,17 @@
 import {Injectable} from '@nestjs/common';
-import {EnvProperty} from '@repo/nest-common';
+import {Env} from '@repo/nest-common';
 import Joi from 'joi';
 
+@Env(
+  Joi.object<CacheEnv, true>({
+    PACKAGES_NEST_CACHE_URL: Joi.string().uri().default('redis://localhost:6379/0'),
+    PACKAGES_NEST_CACHE_KEY: Joi.string().default('cache'),
+    PACKAGES_NEST_CACHE_REQUEST_KEY: Joi.string().default('request'),
+  })
+)
 @Injectable()
 export class CacheEnv {
-  @EnvProperty({
-    name: 'PACKAGES_NEST_CACHE_URL',
-    schema: Joi.string().uri().default('redis://localhost:6379/0'),
-  })
-  url!: string;
-
-  @EnvProperty({
-    name: 'PACKAGES_NEST_CACHE_KEY',
-    schema: Joi.string().default('cache'),
-  })
-  key!: string;
-
-  @EnvProperty({
-    name: 'PACKAGES_NEST_CACHE_REQUEST_KEY',
-    schema: Joi.string().default('request'),
-  })
-  requestKey!: string;
+  PACKAGES_NEST_CACHE_URL!: string;
+  PACKAGES_NEST_CACHE_KEY!: string;
+  PACKAGES_NEST_CACHE_REQUEST_KEY!: string;
 }

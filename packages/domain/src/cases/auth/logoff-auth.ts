@@ -1,8 +1,8 @@
+import {type TSession} from '#/objects';
+
 export type TLogoffAuth = {
-  run(data: TLogoffAuth.Data): Promise<void>;
+  run(data: TLogoffAuth_Data): Promise<void>;
 };
-export namespace TLogoffAuth {
-  export type Data = {
-    sessionId: string;
-  };
-}
+export type TLogoffAuth_Data = {
+  session: TSession;
+};
