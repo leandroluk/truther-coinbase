@@ -1,5 +1,5 @@
 import {createParamDecorator, type ExecutionContext} from '@nestjs/common';
-import {type TUser} from '@truther-coinbase/domain';
+import {type TUser} from '@repo/domain';
 import {type Request} from 'express';
 
 export const GetSession = createParamDecorator((_: unknown, context: ExecutionContext) => {

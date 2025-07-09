@@ -1,12 +1,12 @@
 packages:
-  - backend/apps/*
-  - backend/libs/*
-  - domain
+  - apps/*
   - packages/*
   - tools/*
 
 onlyBuiltDependencies:
+  - '@nestjs/core'
   - '@scarf/scarf'
+  - '@swc/core'
   - lefthook
   - sharp
   - unrs-resolver

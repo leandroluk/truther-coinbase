@@ -1,6 +1,6 @@
 import {ValidateRequestInterceptor} from '#/interceptors/validate-request.interceptor';
 import type {ExecutionContext} from '@nestjs/common';
-import {ValidationError} from '@truther-coinbase/domain';
+import {ValidationError} from '@repo/domain';
 import type Joi from 'joi';
 import {of} from 'rxjs';
 

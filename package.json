@@ -13,8 +13,8 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "test": "turbo run test",
-    "test:e2e": "turbo run test:e2e",
-    "lint": "turbo run lint"
+    "lint": "turbo run lint",
+    "watch": "dev-watch \"./packages/**/src/**/*.{ts,tsx,json,css}\""
   },
   "keywords": [
     "turbo",
@@ -28,8 +28,14 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
+    "@repo/config-eslint": "workspace:*",
+    "@repo/config-typescript": "workspace:*",
+    "@tools/dev": "workspace:*",
     "eslint": "^9.30.1",
     "lefthook": "^1.11.16",
     "turbo": "^2.5.4"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }

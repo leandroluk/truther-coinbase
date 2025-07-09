@@ -20,7 +20,7 @@ import {
   ServerError,
   UnauthorizedError,
   ValidationError,
-} from '@truther-coinbase/domain';
+} from '@repo/domain';
 import {Response} from 'express';
 
 const errorMap = {

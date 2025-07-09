@@ -1,5 +1,5 @@
 import {type CallHandler, type ExecutionContext, type NestInterceptor} from '@nestjs/common';
-import {ValidationError} from '@truther-coinbase/domain';
+import {ValidationError} from '@repo/domain';
 import {type Request} from 'express';
 import type Joi from 'joi';
 import {type Observable} from 'rxjs';

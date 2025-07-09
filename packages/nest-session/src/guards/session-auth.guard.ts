@@ -1,7 +1,7 @@
 import {TSession} from '#/session.types';
 import {Injectable, type CanActivate, type ExecutionContext} from '@nestjs/common';
+import {UnauthorizedError} from '@repo/domain';
 import {CryptoService} from '@repo/nest-crypto';
-import {UnauthorizedError} from '@truther-coinbase/domain';
 import {Request} from 'express';
 import {SessionService} from '../session.service';
 

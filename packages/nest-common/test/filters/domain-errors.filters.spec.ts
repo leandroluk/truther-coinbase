@@ -17,7 +17,7 @@ import {
   ServerError,
   UnauthorizedError,
   ValidationError,
-} from '@truther-coinbase/domain';
+} from '@repo/domain';
 
 class UnknownError extends Error {
   constructor() {

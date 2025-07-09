@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common';
+import {TUser, UnauthorizedError} from '@repo/domain';
 import {CacheService} from '@repo/nest-cache';
-import {TUser, UnauthorizedError} from '@truther-coinbase/domain';
 import crypto from 'crypto';
 import {addMilliseconds} from 'date-fns';
 import ms from 'ms';

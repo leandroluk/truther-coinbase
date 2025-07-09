@@ -1,5 +1,5 @@
 import {EnvProperty} from '#/decorators/env-property.decorator';
-import {ValidationError} from '@truther-coinbase/domain';
+import {ValidationError} from '@repo/domain';
 import Joi from 'joi';
 
 jest.mock('@dotenvx/dotenvx', () => ({

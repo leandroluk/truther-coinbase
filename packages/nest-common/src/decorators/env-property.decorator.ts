@@ -1,5 +1,5 @@
 import dotenvx from '@dotenvx/dotenvx';
-import {ValidationError} from '@truther-coinbase/domain';
+import {ValidationError} from '@repo/domain';
 import type Joi from 'joi';
 import {resolve} from 'path';
 

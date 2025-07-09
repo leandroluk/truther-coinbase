@@ -5,12 +5,14 @@
   "bin": {
     "dev-alias": "./bin/alias.js",
     "dev-alias-w": "./bin/alias-w.js",
-    "dev-scripts": "./bin/scripts.js"
+    "dev-scripts": "./bin/scripts.js",
+    "dev-watch": "./bin/watch.js"
   },
   "dependencies": {
-    "chokidar-cli": "^3.0.0",
     "concurrently": "^9.2.0",
+    "fast-glob": "^3.3.3",
     "tsc-alias": "^1.8.16",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "chokidar": "^4.0.3"
   }
 }
