@@ -34,6 +34,7 @@
     }
   },
   "devDependencies": {
+    "@nestjs/testing": "^11.1.3",
     "@repo/config-eslint": "workspace:^",
     "@repo/config-jest": "workspace:^",
     "@repo/config-typescript": "workspace:^",
@@ -50,11 +51,11 @@
     "typescript": "5.8.3"
   },
   "dependencies": {
-    "@repo/nest-logger": "workspace:^",
     "@dotenvx/dotenvx": "^1.45.2",
     "@nestjs/common": "^11.1.3",
     "@nestjs/swagger": "^11.2.0",
     "@repo/domain": "workspace:^",
+    "@repo/nest-logger": "workspace:^",
     "joi": "^17.13.3",
     "ms": "^2.1.3",
     "rxjs": "^7.8.2"
