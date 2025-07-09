@@ -6,11 +6,9 @@ import {CacheEnv} from './cache.env';
 @Injectable()
 export class CacheService {
   private readonly client: Redis;
-  private readonly cacheKey = 'cache';
 
   constructor(
     private readonly cacheEnv: CacheEnv,
-    private readonly cacheClient: Redis,
     private readonly loggerService: LoggerService
   ) {
     this.client = new Redis(this.cacheEnv.url, {lazyConnect: true});
@@ -27,7 +25,7 @@ export class CacheService {
 
   async ping(): Promise<void> {
     try {
-      await this.cacheClient.ping();
+      await this.client.ping();
     } catch (error) {
       this.loggerService.error(`Failed to ping ${this.constructor.name}`, error);
       throw error;
@@ -36,9 +34,9 @@ export class CacheService {
 
   async get<T = unknown>(pattern: string): Promise<T | null> {
     try {
-      const [key] = await this.cacheClient.keys(`${this.cacheKey}:${pattern}`);
+      const [key] = await this.client.keys(`${this.cacheEnv.key}:${pattern}`);
       if (key) {
-        const stringfiedValue = await this.cacheClient.get(key);
+        const stringfiedValue = await this.client.get(key);
         if (stringfiedValue) {
           const value = JSON.parse(stringfiedValue);
           return value;
@@ -51,9 +49,9 @@ export class CacheService {
   }
 
   async set<T = unknown>(key: string, value: T, expiresInSeconds?: number): Promise<void> {
-    const ref = `${this.cacheKey}:${key}`;
+    const ref = `${this.cacheEnv.key}:${key}`;
     const stringfiedValue = JSON.stringify(value);
-    let multi = this.cacheClient.multi().set(ref, stringfiedValue);
+    let multi = this.client.multi().set(ref, stringfiedValue);
     if (expiresInSeconds && Number.isFinite(expiresInSeconds)) {
       multi = multi.expire(ref, expiresInSeconds);
     }
@@ -61,8 +59,8 @@ export class CacheService {
   }
 
   async del(pattern: string): Promise<void> {
-    const fullPattern = `${this.cacheKey}:${pattern}`;
-    const stream = this.cacheClient.scanStream({
+    const fullPattern = `${this.cacheEnv.key}:${pattern}`;
+    const stream = this.client.scanStream({
       match: fullPattern,
       count: 100,
     });
@@ -70,7 +68,7 @@ export class CacheService {
     stream.on('data', async (keys: string[]) => {
       if (keys.length) {
         try {
-          await this.cacheClient.del(...keys);
+          await this.client.del(...keys);
           this.loggerService.log(`Deleted ${keys.length} cache keys matching pattern "${fullPattern}"`);
         } catch {
           this.loggerService.warn(`Failed to delete some cache keys matching pattern "${fullPattern}"`);
@@ -85,10 +83,10 @@ export class CacheService {
   }
 
   async has(key: string): Promise<boolean> {
-    return Boolean(await this.cacheClient.exists(key));
+    return Boolean(await this.client.exists(key));
   }
 
   async refresh(key: string, expiresInSeconds: number): Promise<void> {
-    await this.cacheClient.expire(key, expiresInSeconds);
+    await this.client.expire(key, expiresInSeconds);
   }
 }

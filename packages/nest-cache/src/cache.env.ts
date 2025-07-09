@@ -11,6 +11,12 @@ export class CacheEnv {
   url!: string;
 
   @EnvProperty({
+    name: 'PACKAGES_NEST_CACHE_KEY',
+    schema: Joi.string().default('cache'),
+  })
+  key!: string;
+
+  @EnvProperty({
     name: 'PACKAGES_NEST_CACHE_REQUEST_KEY',
     schema: Joi.string().default('request'),
   })
