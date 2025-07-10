@@ -46,7 +46,7 @@ export class CoinView implements TSearchCoin_Item {
   currentPrice!: number;
 
   @ViewColumn({name: 'currentMarketCap'})
-  currentMarketCap!: string;
+  currentMarketCap!: number;
 
   @ViewColumn({name: 'highestPrice'})
   highestPrice!: number;

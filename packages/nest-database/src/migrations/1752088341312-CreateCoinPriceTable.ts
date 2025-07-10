@@ -6,7 +6,7 @@ export class CreateCoinPriceTable1752088341312 implements MigrationInterface {
       CREATE TABLE "CoinPrice" (
         "id"        BIGSERIAL      NOT NULL,
         "updatedAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-        "marketCap" VARCHAR(100)   NOT NULL,
+        "marketCap" FLOAT          NOT NULL,
         "value"     FLOAT          NOT NULL,
         "coinId"    BIGINT         NOT NULL,
         --

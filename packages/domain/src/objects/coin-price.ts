@@ -5,8 +5,8 @@ import {type TCoin} from './coin';
 export type TCoinPrice = TCoinPrice_Entity & TCoinPrice_Fields & TCoinPrice$Relations;
 export type TCoinPrice_Entity = TIndexable & TUpdatable;
 export type TCoinPrice_Fields = {
-  /** @type {VARCHAR[100]} */
-  marketCap: string;
+  /** @type {FLOAT} */
+  marketCap: number;
   /** @type {FLOAT} */
   value: number;
 };
@@ -21,7 +21,7 @@ export const TCoinPrice = {
     properties: {
       id: swaggerGenerator.integer({description: "CoinPrice's identifier"}),
       updatedAt: swaggerGenerator.date({description: "CoinPrice's update date"}),
-      marketCap: swaggerGenerator.string({description: "CoinPrice's market capacity"}),
+      marketCap: swaggerGenerator.number({description: "CoinPrice's market capacity"}),
       value: swaggerGenerator.number({description: "CoinPrice's value"}),
       coinId: swaggerGenerator.integer({description: "CoinPrice's reference to Coin's identifier"}),
     },

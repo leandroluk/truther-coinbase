@@ -12,7 +12,7 @@ import {CoinPriceEntity} from './coin-price.entity';
     // 'removedAt',
     'name',
     'symbol',
-    // 'thumb',
+    // 'image',
     'slug',
   ],
 })
@@ -35,8 +35,8 @@ export class CoinEntity implements TCoin {
   @Column({name: 'symbol', type: 'varchar', length: 10})
   symbol!: string;
 
-  @Column({name: 'thumb', type: 'text'})
-  thumb!: string;
+  @Column({name: 'image', type: 'text'})
+  image!: string;
 
   @Column({name: 'slug', type: 'varchar', length: 100})
   slug!: string;

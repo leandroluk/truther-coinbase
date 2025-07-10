@@ -10,7 +10,7 @@ export class CreateCoinTable1752088258157 implements MigrationInterface {
         "removedAt" TIMESTAMPTZ(3)     NULL,
         "name"      VARCHAR(100)   NOT NULL,
         "symbol"    VARCHAR(10)    NOT NULL,
-        "thumb"     TEXT           NOT NULL,
+        "image"     TEXT           NOT NULL,
         "slug"      VARCHAR(100)   NOT NULL,
         --
         PRIMARY KEY ("id")

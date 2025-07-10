@@ -6,7 +6,7 @@ import Joi from 'joi';
 export type TSearchCoin = {
   run(query: TSearchCoin_Query): Promise<TSearchCoin_Result>;
 };
-export type TSearchCoin_Item = Omit<TCoin, 'thumb'> & {
+export type TSearchCoin_Item = Omit<TCoin, 'image'> & {
   currentPrice: TCoinPrice['value'];
   currentMarketCap: TCoinPrice['marketCap'];
   highestPrice: number;

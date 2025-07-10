@@ -20,8 +20,8 @@ export class CoinPriceEntity implements TCoinPrice {
   @PrimaryColumn({type: 'timestamptz', name: 'updatedAt'})
   updatedAt!: Date;
 
-  @Column({name: 'marketCap', type: 'varchar', length: 100})
-  marketCap!: string;
+  @Column({name: 'marketCap', type: 'float'})
+  marketCap!: number;
 
   @Column({name: 'value', type: 'float'})
   value!: number;
