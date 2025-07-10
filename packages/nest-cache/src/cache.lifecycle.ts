@@ -1,11 +1,11 @@
-import {Injectable, OnModuleInit} from '@nestjs/common';
+import {Injectable, OnApplicationBootstrap} from '@nestjs/common';
 import {CacheService} from './cache.service';
 
 @Injectable()
-export class CacheLifecycle implements OnModuleInit {
+export class CacheLifecycle implements OnApplicationBootstrap {
   constructor(private readonly cacheService: CacheService) {}
 
-  async onModuleInit(): Promise<void> {
+  async onApplicationBootstrap(): Promise<void> {
     await this.cacheService.connect();
   }
 }

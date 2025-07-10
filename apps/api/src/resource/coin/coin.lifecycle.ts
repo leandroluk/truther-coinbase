@@ -1,18 +1,18 @@
-import {Injectable, OnModuleInit} from '@nestjs/common';
+import {Injectable, OnApplicationBootstrap} from '@nestjs/common';
 import {SchedulerRegistry} from '@nestjs/schedule';
 import {CronJob} from 'cron';
 import {CoinEnv} from './coin.env';
 import {ImportFromCoingeckoWorker} from './workers';
 
 @Injectable()
-export class CoinLifecycle implements OnModuleInit {
+export class CoinLifecycle implements OnApplicationBootstrap {
   constructor(
     private readonly schedulerRegistry: SchedulerRegistry,
     private readonly coinEnv: CoinEnv,
     private readonly importFromCoingeckoWorker: ImportFromCoingeckoWorker
   ) {}
 
-  onModuleInit(): void {
+  onApplicationBootstrap(): void {
     if (this.coinEnv.APPS_API_RESOUCES_COIN_RUN_ON_START) {
       void this.importFromCoingeckoWorker.run();
     }

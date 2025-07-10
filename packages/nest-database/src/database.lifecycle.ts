@@ -1,11 +1,11 @@
-import {Injectable, type OnModuleInit} from '@nestjs/common';
+import {Injectable, OnApplicationBootstrap} from '@nestjs/common';
 import {DatabaseService} from './database.service';
 
 @Injectable()
-export class DatabaseLifecycle implements OnModuleInit {
+export class DatabaseLifecycle implements OnApplicationBootstrap {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async onModuleInit(): Promise<void> {
+  async onApplicationBootstrap(): Promise<void> {
     await this.databaseService.connect();
   }
 }

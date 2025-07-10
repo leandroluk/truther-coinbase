@@ -8,15 +8,15 @@ const makeSut = async () => {
   return {cacheService, sut};
 };
 describe('cache.lifecycle', () => {
-  describe('onModuleInit', () => {
+  describe('onApplicationBootstrap', () => {
     it('throws when cacheService.connect throws', async () => {
       const {cacheService, sut} = await makeSut();
       cacheService.connect.mockRejectedValue(new Error());
-      await expect(sut.onModuleInit()).rejects.toThrow();
+      await expect(sut.onApplicationBootstrap()).rejects.toThrow();
     });
     it('return when success', async () => {
       const {sut} = await makeSut();
-      await expect(sut.onModuleInit()).resolves.toBeUndefined();
+      await expect(sut.onApplicationBootstrap()).resolves.toBeUndefined();
     });
   });
 });
