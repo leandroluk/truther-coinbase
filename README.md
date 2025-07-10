@@ -1,6 +1,6 @@
-# Truther Coingecko
+# Truther CoinGecko
 
-Project developed as tech challenge for Truther Company
+Project developed as tech challenge for [Truther Company](https://www.truther.to/) to create an application with authentication and integrate with [CoinGecko API](https://docs.coingecko.com/reference/introduction)
 
 # Dependencies
 
@@ -10,7 +10,7 @@ Project developed as tech challenge for Truther Company
 - [Docker](https://www.docker.com/get-started)
 - [Pnpm](https://pnpm.io/installation)
 
-> [!IMPORTANT] To to pnpm works correctly on Windows (v10+), you need to enable the Developer Mode.
+> [!TIP] To to pnpm works correctly on Windows (v10+), you need to enable the Developer Mode.
 
 # Get started
 
