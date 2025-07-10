@@ -1,6 +1,6 @@
-import {FullTextEntity, IndexableColumn, UpdatableColumn} from '#/decorators';
+import {FullTextEntity} from '#/decorators';
 import {type TCoinPrice} from '@repo/domain';
-import {Column, JoinColumn, ManyToOne} from 'typeorm';
+import {Column, JoinColumn, ManyToOne, PrimaryColumn, PrimaryGeneratedColumn} from 'typeorm';
 import {CoinEntity} from './coin.entity';
 
 @FullTextEntity<CoinPriceEntity>({
@@ -14,10 +14,10 @@ import {CoinEntity} from './coin.entity';
   ],
 })
 export class CoinPriceEntity implements TCoinPrice {
-  @IndexableColumn()
+  @PrimaryGeneratedColumn({type: 'bigint', name: 'id'})
   id!: number;
 
-  @UpdatableColumn()
+  @PrimaryColumn({type: 'timestamptz', name: 'updatedAt'})
   updatedAt!: Date;
 
   @Column({name: 'marketCap', type: 'varchar', length: 100})
@@ -31,7 +31,7 @@ export class CoinPriceEntity implements TCoinPrice {
 
   //--
 
-  @ManyToOne(() => CoinEntity, _ => _.PriceList, {onDelete: 'CASCADE'})
+  @ManyToOne(() => CoinEntity, coin => coin.PriceList, {onDelete: 'CASCADE'})
   @JoinColumn({name: 'coinId', foreignKeyConstraintName: 'id'})
   Coin!: CoinEntity;
 }

@@ -36,25 +36,24 @@ const itemSwagger = swaggerGenerator.object<TSearchCoin_Item>({
   },
 });
 
-export const TSearchCoin = {
-  query: {
-    validator: validatorGenerator.searchQuery<TSearchCoin_Item>({
-      id: Joi.number().integer().positive(),
-      updatedAt: Joi.date(),
-      createdAt: Joi.date(),
-      name: Joi.string(),
-      symbol: Joi.string(),
-      slug: Joi.string(),
-      currentPrice: Joi.number(),
-      currentMarketCap: Joi.string(),
-      highestPrice: Joi.number(),
-      lowestPrice: Joi.number(),
-      priceChange24h: Joi.number(),
-      priceChange7d: Joi.number(),
-    }),
-    swagger: swaggerGenerator.searchResult<TSearchCoin_Item>(itemSwagger),
-  },
-  result: {
-    swagger: swaggerGenerator.searchResult<TSearchCoin_Item>(itemSwagger),
-  },
+export const TSearchCoin_Query = {
+  validator: validatorGenerator.searchQuery<TSearchCoin_Item>({
+    id: Joi.number().integer().positive(),
+    updatedAt: Joi.date(),
+    createdAt: Joi.date(),
+    name: Joi.string(),
+    symbol: Joi.string(),
+    slug: Joi.string(),
+    currentPrice: Joi.number(),
+    currentMarketCap: Joi.string(),
+    highestPrice: Joi.number(),
+    lowestPrice: Joi.number(),
+    priceChange24h: Joi.number(),
+    priceChange7d: Joi.number(),
+  }),
+  swagger: swaggerGenerator.searchQuery<TSearchCoin_Item>(itemSwagger),
+};
+
+export const TSearchCoin_Result = {
+  swagger: swaggerGenerator.searchResult<TSearchCoin_Item>(itemSwagger),
 };

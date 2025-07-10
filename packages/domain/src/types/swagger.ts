@@ -1,7 +1,7 @@
 import {type OpenAPIV3 as O} from 'openapi-types';
 import {type Readable} from 'stream';
 
-export type SwaggerBase = O.NonArraySchemaObject & {
+export type SwaggerType = O.NonArraySchemaObject & {
   'x-type'?: 'string' | 'number' | 'boolean' | 'date';
 };
 
@@ -13,12 +13,12 @@ export type SwaggerObject<T extends object> = Omit<O.NonArraySchemaObject, 'type
     [K in keyof T]: T[K] extends Array<any>
     ? O.ArraySchemaObject
     : T[K] extends Readable
-    ? SwaggerBase
+    ? SwaggerType
     : T[K] extends Date
-    ? SwaggerBase
+    ? SwaggerType
     : T[K] extends object
     ? SwaggerObject<T[K]>
-    : SwaggerBase;
+    : SwaggerType;
   };
 };
 
@@ -26,7 +26,7 @@ export type SwaggerArray<T> = Omit<O.ArraySchemaObject, 'items'> & {
   items: SwaggerProperties<T extends Array<infer U> ? U : T>;
 };
 
-export type SwaggerEnum<T> = Omit<SwaggerBase, 'enum'> & {
+export type SwaggerEnum<T> = Omit<SwaggerType, 'enum'> & {
   enum: Array<T>;
 };
 
@@ -35,14 +35,14 @@ export type SwaggerAny<T = unknown> = T extends object
   ? SwaggerObject<T>
   : T extends Array<unknown>
   ? SwaggerArray<T>
-  : SwaggerEnum<T> | SwaggerBase;
+  : SwaggerEnum<T> | SwaggerType;
 
 // prettier-ignore
 export type SwaggerProperties<T> =
   T extends Array<any>
   ? SwaggerArray<T>
   : T extends Date
-  ? SwaggerBase
+  ? SwaggerType
   : T extends object
   ? SwaggerObject<T>
-  : SwaggerBase;
+  : SwaggerType;

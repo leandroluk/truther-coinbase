@@ -24,17 +24,18 @@ const itemSwagger = swaggerGenerator.object<TSearchUser_Item>({
   },
 });
 
-export const TSearchUser = {
-  query: {
-    validator: validatorGenerator.searchQuery<TSearchUser_Item>({
-      id: Joi.number().integer().positive(),
-      updatedAt: Joi.date(),
-      createdAt: Joi.date(),
-      name: Joi.string(),
-      email: Joi.string(),
-      role: Joi.string().valid(...Object.values(EUserRole)),
-    }),
-    swagger: swaggerGenerator.searchQuery<TSearchUser_Item>(itemSwagger),
-  },
-  result: swaggerGenerator.searchResult<TSearchUser_Item>(itemSwagger),
+export const TSearchUser_Query = {
+  validator: validatorGenerator.searchQuery<TSearchUser_Item>({
+    id: Joi.number().integer().positive(),
+    updatedAt: Joi.date(),
+    createdAt: Joi.date(),
+    name: Joi.string(),
+    email: Joi.string(),
+    role: Joi.string().valid(...Object.values(EUserRole)),
+  }),
+  swagger: swaggerGenerator.searchQuery<TSearchUser_Item>(itemSwagger),
+};
+
+export const TSearchUser_Result = {
+  swagger: swaggerGenerator.searchResult<TSearchUser_Item>(itemSwagger),
 };

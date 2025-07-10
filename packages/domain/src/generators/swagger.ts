@@ -1,10 +1,10 @@
 import {SEARCH} from '#/constants';
 import {
   type SwaggerArray,
-  type SwaggerBase,
   type SwaggerEnum,
   type SwaggerObject,
   type SwaggerProperties,
+  type SwaggerType,
   type TSearchFields,
   type TSearchQuery,
   type TSearchResult,
@@ -25,28 +25,28 @@ export const swaggerGenerator = {
     ...data,
   }),
 
-  boolean: (data?: Omit<SwaggerBase, 'type'>): SwaggerBase => ({
+  boolean: (data?: Omit<SwaggerType, 'type'>): SwaggerType => ({
     type: 'boolean',
     ...data,
   }),
 
-  number: (data?: Omit<SwaggerBase, 'type'>): SwaggerBase => ({
+  number: (data?: Omit<SwaggerType, 'type'>): SwaggerType => ({
     type: 'number',
     ...data,
   }),
 
-  integer: (data?: Omit<SwaggerBase, 'type'>): SwaggerBase => ({
+  integer: (data?: Omit<SwaggerType, 'type'>): SwaggerType => ({
     type: 'integer',
     'x-type': 'number',
     ...data,
   }),
 
-  string: (data?: Omit<SwaggerBase, 'type'>): SwaggerBase => ({
+  string: (data?: Omit<SwaggerType, 'type'>): SwaggerType => ({
     type: 'string',
     ...data,
   }),
 
-  url: (data?: Omit<SwaggerBase, 'type'>): SwaggerBase => ({
+  url: (data?: Omit<SwaggerType, 'type'>): SwaggerType => ({
     type: 'string',
     format: 'url',
     ...data,
@@ -58,19 +58,19 @@ export const swaggerGenerator = {
     ...data,
   }),
 
-  email: (data?: Omit<SwaggerBase, 'type'>): SwaggerBase => ({
+  email: (data?: Omit<SwaggerType, 'type'>): SwaggerType => ({
     type: 'string',
     format: 'email',
     ...data,
   }),
 
-  binary: (data?: Omit<SwaggerBase, 'type'>): SwaggerBase => ({
+  binary: (data?: Omit<SwaggerType, 'type'>): SwaggerType => ({
     type: 'string',
     format: 'binary',
     ...data,
   }),
 
-  date: (data?: Omit<SwaggerBase, 'type'>): SwaggerBase => ({
+  date: (data?: Omit<SwaggerType, 'type'>): SwaggerType => ({
     type: 'string',
     'x-type': 'date',
     format: 'date-time',
@@ -80,12 +80,27 @@ export const swaggerGenerator = {
   searchWhere: <T extends object>(swaggerObject: SwaggerObject<T>): SwaggerObject<TSearchWhere<T>> => {
     const swaggerProperties = {} as any;
     for (const [key, property] of Object.entries(swaggerObject.properties)) {
-      const baseType = property as SwaggerBase;
-      const type = (baseType['x-type'] || baseType.type) as keyof typeof SEARCH.OPERATOR;
+      const swaggerType = property as SwaggerType;
+      const type = (swaggerType['x-type'] || swaggerType.type) as keyof typeof SEARCH.OPERATOR;
       const operators = SEARCH.OPERATOR[type] as Array<string>;
       swaggerProperties[key] = swaggerGenerator.object({
         required: [],
-        properties: operators.reduce((obj, operator) => ({...obj, [operator]: property}), {}),
+        properties: {
+          ...operators.reduce(
+            (obj, operator) => ({
+              ...obj,
+              [operator]: swaggerType,
+            }),
+            {}
+          ),
+          ...SEARCH.OPERATOR.range.reduce(
+            (obj, operator) => ({
+              ...obj,
+              [operator]: swaggerGenerator.array({items: swaggerType}),
+            }),
+            {}
+          ),
+        },
       });
     }
     return swaggerGenerator.object<TSearchWhere<T>>({

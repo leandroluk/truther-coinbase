@@ -10,7 +10,7 @@ export class CryptoService {
 
   constructor(readonly cryptoEnv: CryptoEnv) {}
 
-  createHash(plainText: string): string {
+  hash(plainText: string): string {
     const hashedText = crypto.createHash('sha256').update(plainText).digest(this.cipherEncoding);
     return hashedText;
   }

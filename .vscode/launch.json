@@ -1,0 +1,48 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "api",
+      "configurations": [
+        "watch:packages",
+        "api:dev"
+      ],
+      "stopAll": true
+    },
+  ],
+  "configurations": [
+    // api:dev
+    {
+      "name": "api:dev",
+      "request": "launch",
+      "type": "node",
+      "cwd": "${workspaceFolder}/apps/api",
+      "runtimeExecutable": "pnpm",
+      "console": "integratedTerminal",
+      "runtimeArgs": [
+        "dev"
+      ],
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+    // watch:packages
+    {
+      "name": "watch:packages",
+      "request": "launch",
+      "type": "node",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "pnpm",
+      "console": "integratedTerminal",
+      "runtimeArgs": [
+        "watch"
+      ],
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    },
+  ]
+}

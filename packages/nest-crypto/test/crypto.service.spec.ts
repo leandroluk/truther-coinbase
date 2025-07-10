@@ -16,7 +16,7 @@ describe('CryptoService', () => {
   describe('createHash', () => {
     it('creates a SHA-256 hash of a plain text', () => {
       const {sut} = makeSut();
-      expect(sut.createHash('hello')).toBeDefined();
+      expect(sut.hash('hello')).toBeDefined();
     });
   });
 

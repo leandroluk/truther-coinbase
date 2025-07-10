@@ -1,7 +1,10 @@
+import {type EOidcProvider} from '#/enums';
 import {type TUser} from './user';
 
 export type TSession = {
   key: string;
-  userId: TUser['id'];
+  user: Omit<TUser, 'password'>;
+  refreshToken?: string;
+  provider?: EOidcProvider;
   ttl: Date;
 };

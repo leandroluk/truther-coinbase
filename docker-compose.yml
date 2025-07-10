@@ -1,16 +1,16 @@
-name: "truther-coinbase"
+name: "truther-coingecko"
 
 networks:
-  truther-coinbase:
-    name: "truther-coinbase"
+  truther-coingecko:
+    name: "truther-coingecko"
 
 services:
-  truther-coinbase-postgres:
+  truther-coingecko-postgres:
     image: "postgres"
     hostname: "postgres"
-    container_name: "truther-coinbase-postgres"
+    container_name: "truther-coingecko-postgres"
     ports: ["${DOCKER_POSTGRES_PORT:?DOCKER_POSTGRES_PORT is required}:5432"]
-    networks: ["truther-coinbase"]
+    networks: ["truther-coingecko"]
     environment:
       POSTGRES_USER: "${DOCKER_POSTGRES_USERNAME:?DOCKER_POSTGRES_USERNAME is required}"
       POSTGRES_PASSWORD: "${DOCKER_POSTGRES_PASSWORD:?DOCKER_POSTGRES_PASSWORD is required}"
@@ -21,11 +21,11 @@ services:
       timeout: 5s
       start_period: 10s
 
-  truther-coinbase-redis:
+  truther-coingecko-redis:
     image: "redis/redis-stack-server"
     hostname: "redis"
-    container_name: "truther-coinbase-redis"
-    networks: ["truther-coinbase"]
+    container_name: "truther-coingecko-redis"
+    networks: ["truther-coingecko"]
     ports: ["${DOCKER_REDIS_PORT:?DOCKER_REDIS_PORT is required}:6379"]
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]

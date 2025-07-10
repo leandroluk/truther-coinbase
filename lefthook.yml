@@ -1,42 +1,76 @@
-# EXAMPLE USAGE:
-#
-#   Refer for explanation to following link:
-#   https://lefthook.dev/configuration/
-#
-# pre-push:
-#   jobs:
-#     - name: packages audit
-#       tags:
-#         - frontend
-#         - security
-#       run: yarn audit
-#
-#     - name: gems audit
-#       tags:
-#         - backend
-#         - security
-#       run: bundle audit
-#
-# pre-commit:
-#   parallel: true
-#   jobs:
-#     - run: yarn eslint {staged_files}
-#       glob: "*.{js,ts,jsx,tsx}"
-#
-#     - name: rubocop
-#       glob: "*.rb"
-#       exclude:
-#         - config/application.rb
-#         - config/routes.rb
-#       run: bundle exec rubocop --force-exclusion {all_files}
-#
-#     - name: govet
-#       files: git ls-files -m
-#       glob: "*.go"
-#       run: go vet {files}
-#
-#     - script: "hello.js"
-#       runner: node
-#
-#     - script: "hello.go"
-#       runner: go run
+pre-commit:
+  commands:
+    linting:
+      run: pnpm lint
+
+prepare-commit-msg:
+  scripts:
+    fix-all-package-json:
+      runner: node
+      script: |
+        const { execSync } = require('child_process');
+        const fs = require('fs');
+        const path = require('path');
+        const rootDir = process.cwd();
+        const rootPackageJson = require(path.join(rootDir, 'package.json'));
+        const output = execSync('pnpm -r exec node -p "process.cwd()"', { encoding: 'utf8' });
+        const workspaceDirs = [...new Set(output.trim().split('\n'))];
+        for (const dir of workspaceDirs) {
+          const packageJsonPath = path.join(dir, 'package.json');
+          if (!fs.existsSync(packageJsonPath)) continue;
+          const pkg = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+          pkg.version = rootPackageJson.version;
+          pkg.displayName = rootPackageJson.displayName;
+          pkg.description = rootPackageJson.description;
+          pkg.homepage = rootPackageJson.homepage;
+          pkg.author = rootPackageJson.author;
+          pkg.company = rootPackageJson.company;
+          pkg.engines = rootPackageJson.engines;
+          fs.writeFileSync(packageJsonPath, JSON.stringify(pkg, null, 2));
+        }
+
+    generate-env-examples:
+      runner: node
+      script: |
+        const fs = require('fs');
+        const path = require('path');
+        const rootPackageJson = require('./package.json');
+        for (const workspaceDir of rootPackageJson.workspaces.packages) {
+          const envPath = path.resolve(workspaceDir, '.env');
+          const envExamplePath = path.resolve(workspaceDir, '.env.example');
+          if (fs.existsSync(envPath)) {
+            const envRaw = fs.readFileSync(envPath, 'utf8');
+            const processed = envRaw.replace(
+              /^(\s*[^=\n]+?)(\s*=\s*)(".+?"|'.+?'|[^#\n]*)(\s*#\s*!.*)$/gm,
+              (_, key, eq, _val, comment) => `${key}${eq}"{{secret}}"${comment}`
+            );
+            fs.writeFileSync(envExamplePath, processed, 'utf8');
+          }
+        }
+
+    add-branch-prefix:
+      runner: node
+      script: |
+        const { execSync } = require('child_process');
+        const fs = require('fs');
+        let branchName;
+        try {
+          branchName = execSync('git symbolic-ref --short HEAD', { encoding: 'utf8' }).trim();
+        } catch (err) {
+          branchName = 'unknown-branch';
+        }
+        const commitMsgFile = process.argv[2];
+        const commitMsg = fs.readFileSync(commitMsgFile, 'utf8');
+        if (!commitMsg.startsWith(`${branchName} - `)) {
+          fs.writeFileSync(commitMsgFile, `${branchName} - ${commitMsg}`);
+        }
+
+commit-msg:
+  commands:
+    commitlint:
+      run: npx commitlint --edit
+
+pre-push:
+  commands:
+    lint_and_tsc:
+      run: pnpm lint && pnpm build

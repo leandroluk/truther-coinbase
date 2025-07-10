@@ -1,4 +1,4 @@
-# Truther Coinbase
+# Truther Coingecko
 
 Project developed as tech challenge for Truther Company
 
@@ -17,13 +17,13 @@ Project developed as tech challenge for Truther Company
 - Clone repository using command:
   
   ```bash
-  $ git clone https://github.com/leandroluk/truther-coinbase.git
+  $ git clone https://github.com/leandroluk/truther-coingecko.git
   ```
 
 - Move to repository path and install dependencies:
   
   ```bash
-  $ cd ./truther-coinbase
+  $ cd ./truther-coingecko
   $ pnpm install
   ```
 
