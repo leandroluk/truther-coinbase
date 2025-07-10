@@ -10,7 +10,8 @@ Project developed as tech challenge for [Truther Company](https://www.truther.to
 - [Docker](https://www.docker.com/get-started)
 - [Pnpm](https://pnpm.io/installation)
 
-> [!TIP] To to pnpm works correctly on Windows (v10+), you need to enable the Developer Mode.
+> [!IMPORTANT] 
+> To to pnpm works correctly on Windows (v10+), you need to enable the Developer Mode.
 
 # Get started
 
