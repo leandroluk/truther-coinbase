@@ -11,7 +11,8 @@ export class CreateCoinPriceTable1752088341312 implements MigrationInterface {
         "coinId"    BIGINT         NOT NULL,
         --
         PRIMARY KEY ("id", "updatedAt"),
-        FOREIGN KEY ("coinId") REFERENCES "Coin" ("id")
+        FOREIGN KEY ("coinId") REFERENCES "Coin" ("id"),
+        UNIQUE ("updatedAt", "coinId")
       ) PARTITION BY RANGE ("updatedAt");
     `);
   }

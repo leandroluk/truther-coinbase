@@ -26,7 +26,8 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     const key = `user:${payload.sub}session:${payload.jti}`;
     const session = await this.cacheService.get<TSession>(key);
     if (session) {
-      await this.cacheService.refresh(key, ms(this.authEnv.PACKAGES_NEST_SESSION_ACCESS_TTL) / 1000);
+      const expiresInSeconds = ms(this.authEnv.PACKAGES_NEST_SESSION_ACCESS_TTL) / 1000;
+      await this.cacheService.refresh(key, expiresInSeconds);
       return session;
     }
     throw new UnauthorizedError();

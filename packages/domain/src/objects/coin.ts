@@ -6,7 +6,7 @@ export type TCoin_Entity = TIndexable & TUpdatable & TCreatable & TRemovable;
 export type TCoin_Fields = {
   /** @type {VARCHAR[100]} */
   name: string;
-  /** @type {VARCHAR[10]} */
+  /** @type {VARCHAR[100]} */
   symbol: string;
   /** @type {URL} */
   image: string;

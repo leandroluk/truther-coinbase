@@ -2,7 +2,7 @@ import {type CryptoEnv} from '#/crypto.env';
 import {CryptoService} from '#/crypto.service';
 
 function makeSut() {
-  const cryptoEnv = {key: ''.padStart(32, 'a')};
+  const cryptoEnv = {PACKAGES_NEST_CRYPTO_KEY: ''.padStart(32, 'a')};
   const sut = new CryptoService(cryptoEnv as unknown as CryptoEnv);
   return {sut};
 }

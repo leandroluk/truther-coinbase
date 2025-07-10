@@ -63,9 +63,10 @@ classDiagram
         id: BIGINT
         updatedAt: TIMESTAMPTZ[3]
         createdAt: TIMESTAMPTZ[3]
+        removedAt: TIMESTAMPTZ[3]
         name: VARCHAR[100]
-        symbol: VARCHAR[10]
-        thumb: URL
+        symbol: VARCHAR[100]
+        image: URL
         slug: VARCHAR[100]
     }
 

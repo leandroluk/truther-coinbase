@@ -17,7 +17,8 @@ export class AuthService {
   ) {}
 
   async createCode(session: TSession): Promise<string> {
-    const ttl = addMilliseconds(new Date(), ms(this.authEnv.PACKAGES_NEST_SESSION_ACCESS_TTL));
+    const milliseconds = ms(this.authEnv.PACKAGES_NEST_SESSION_ACCESS_TTL);
+    const ttl = addMilliseconds(new Date(), milliseconds);
     const code = this.cryptoService.encrypt(JSON.stringify({key: session.key, ttl}));
     return code;
   }

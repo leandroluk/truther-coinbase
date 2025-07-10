@@ -5,7 +5,6 @@ import {EOidcProvider, EUserRole, TSession} from '@repo/domain';
 import {CacheService} from '@repo/nest-cache';
 import {DatabaseService, UserEntity} from '@repo/nest-database';
 import {addMilliseconds} from 'date-fns';
-import {Request} from 'express';
 import ms from 'ms';
 import {Strategy} from 'passport-openidconnect';
 
@@ -29,7 +28,7 @@ export class OidcMicrosoftStrategy extends PassportStrategy(Strategy, 'oidc-micr
     });
   }
 
-  async validate(req: Request, _issuer: string, profile: any): Promise<TSession> {
+  async validate(req: any, _issuer: string, profile: any): Promise<TSession> {
     return await this.databaseService.transaction(async entityManager => {
       let user = await entityManager.findOne(UserEntity, {where: {email: profile.emails?.[0]?.value}});
       if (!user) {
@@ -47,7 +46,7 @@ export class OidcMicrosoftStrategy extends PassportStrategy(Strategy, 'oidc-micr
         ttl: addMilliseconds(new Date(), ms(this.authEnv.PACKAGES_NEST_SESSION_REFRESH_TTL)),
         user,
         provider: EOidcProvider.Microsoft,
-        refreshToken: (req as any).authInfo.refreshToken,
+        refreshToken: req.authInfo.refreshToken,
       };
       const expiresInSeconds = ms(this.authEnv.PACKAGES_NEST_SESSION_ACCESS_TTL) / 1000;
       await this.cacheService.set(`user:${user.id}session:${session.key}`, user, expiresInSeconds);

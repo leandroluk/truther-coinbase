@@ -1,7 +1,7 @@
 import {AuthEnv} from '#/auth.env';
-import {Injectable, UnauthorizedException} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {PassportStrategy} from '@nestjs/passport';
-import {TSession} from '@repo/domain';
+import {TSession, UnauthorizedError} from '@repo/domain';
 import {CacheService} from '@repo/nest-cache';
 import {CryptoService} from '@repo/nest-crypto';
 import {DatabaseService, UserEntity} from '@repo/nest-database';
@@ -37,7 +37,7 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
         await this.cacheService.set(`user:${user.id}session:${session.key}`, user, expiresInSeconds);
         return session;
       }
-      throw new UnauthorizedException();
+      throw new UnauthorizedError();
     });
   }
 }

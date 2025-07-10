@@ -4,7 +4,7 @@ import Redis from 'ioredis';
 jest.mock('ioredis');
 
 const makeSut = async () => {
-  const cacheEnv = {url: 'url', key: 'key'};
+  const cacheEnv = {PACKAGES_NEST_CACHE_URL: 'url', PACKAGES_NEST_CACHE_KEY: 'key'};
   const loggerService = {
     error: jest.fn(),
     log: jest.fn(),

@@ -9,11 +9,12 @@ export class CreateCoinTable1752088258157 implements MigrationInterface {
         "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
         "removedAt" TIMESTAMPTZ(3)     NULL,
         "name"      VARCHAR(100)   NOT NULL,
-        "symbol"    VARCHAR(10)    NOT NULL,
+        "symbol"    VARCHAR(100)   NOT NULL,
         "image"     TEXT           NOT NULL,
         "slug"      VARCHAR(100)   NOT NULL,
         --
-        PRIMARY KEY ("id")
+        PRIMARY KEY ("id"),
+        UNIQUE ("slug")
       );
     `);
   }
