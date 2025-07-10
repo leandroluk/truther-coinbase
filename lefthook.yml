@@ -1,7 +1,12 @@
-pre-commit:
+pre-push:
   commands:
-    linting:
-      run: pnpm lint
+    lint-and-tsc:
+      run: pnpm lint && pnpm build
+
+commit-msg:
+  commands:
+    commitlint:
+      run: npx commitlint --edit
 
 prepare-commit-msg:
   scripts:
@@ -65,12 +70,7 @@ prepare-commit-msg:
           fs.writeFileSync(commitMsgFile, `${branchName} - ${commitMsg}`);
         }
 
-commit-msg:
+pre-commit:
   commands:
-    commitlint:
-      run: npx commitlint --edit
-
-pre-push:
-  commands:
-    lint_and_tsc:
-      run: pnpm lint && pnpm build
+    linting:
+      run: pnpm lint
