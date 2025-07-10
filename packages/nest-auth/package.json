@@ -9,7 +9,7 @@
     "dev": "dev-scripts",
     "build": "tsc -p tsconfig.build.json && dev-alias",
     "lint": "eslint \"{src,test}/**/*.ts\" --fix",
-    "test": "jest --passWithNoTests --detectOpenHandles",
+    "test": "jest --runInBand --detectOpenHandles --forceExit --bail",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage"
   },
