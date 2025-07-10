@@ -1,0 +1,23 @@
+{
+  "name": "@repo/config-eslint",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./base": "./base.js",
+    "./jest": "./jest.js",
+    "./library": "./library.js",
+    "./nest": "./nest.js"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.30.1",
+    "@typescript-eslint/eslint-plugin": "^8.35.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-n": "^17.20.0",
+    "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-prettier": "^5.5.1",
+    "globals": "^16.2.0",
+    "typescript": "5.8.3",
+    "typescript-eslint": "^8.35.0"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "truther-coingecko",
+  "description": "Project developed as tech challenge for Truther Company",
+  "version": "1.0.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "author": {
+    "name": "Leandro Santiago Gomes",
+    "email": "leandroluk@gmail.com",
+    "url": "https://www.linkedin.com/in/leandroluk/"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "watch": "dev-watch \"./packages/**/src/**/*.{ts,tsx,json,css}\"",
+    "compose:down": "docker compose down --remove-orphans",
+    "compose:up": "docker compose up --build --force-recreate",
+    "compose": "pnpm compose:down && pnpm compose:up",
+    "compose:d": "npm run compose -- -d"
+  },
+  "keywords": [
+    "turbo",
+    "nestjs",
+    "nextjs",
+    "typescript",
+    "truther",
+    "coingecko"
+  ],
+  "packageManager": "pnpm@10.13.1",
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@repo/config-eslint": "workspace:*",
+    "@repo/config-typescript": "workspace:*",
+    "@tools/dev": "workspace:*",
+    "eslint": "^9.30.1",
+    "fast-glob": "^3.3.3",
+    "lefthook": "^1.11.16",
+    "turbo": "^2.5.4"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

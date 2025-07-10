@@ -1,0 +1,11 @@
+{
+  "name": "@repo/config-jest",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "devDependencies": {
+    "@jest/types": "^30.0.1",
+    "jest": "^30.0.3",
+    "next": "^15.3.4"
+  }
+}
